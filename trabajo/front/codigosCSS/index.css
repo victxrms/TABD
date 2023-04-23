@@ -1,0 +1,162 @@
+@media (max-width: 600px) {
+    /* Reglas de estilo para pantallas menores a 600px */
+    
+
+    #bannerPrincipal h3{
+        margin-top: 0.5em;
+    }
+
+    footer ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+
+
+body {
+
+    font-family: Helvetica, sans-serif;
+    background-color: white;
+    max-width: 1291px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 2em;
+    
+}
+
+header{
+    margin-left: 1em;
+    margin-bottom: -1em;
+}
+
+header nav{
+    justify-content: center;
+    flex-direction: column;
+}
+
+header > nav > a{
+    text-decoration: none;
+}
+
+header .titulo{
+    font-size: 4em;
+    font-weight: bold;
+    text-decoration: none; 
+    color: black;
+    cursor: pointer;
+    display: inline; 
+}
+
+header img{
+    max-height: auto;
+    width: 4em;
+}
+
+hr {
+    border: none; 
+    border-bottom: 0.2em solid #FF7B54;
+    border-radius: 0.1em; 
+    margin-top: 0em;
+    margin-bottom: 1em;
+}
+
+#bannerPrincipal{
+    justify-content: center;
+    background-image: url('../recursos/imagenes/bannerPrincipal.png');
+    height: auto;
+    max-width: 1291px;
+    min-height: 450px;
+    padding-top: 0.1em;
+    padding-left: 1em;
+    
+}
+
+#bannerPrincipal h3{
+    color: white;
+    font-size: 3em;
+}
+
+#bannerPrincipal p{
+    color: white;
+    font-size: 2em;
+    position: relative;
+    margin-top: -1em;
+}
+
+
+#bannerPrincipal img{
+    position: relative;
+    top: 0.75em;
+    left: -0.25em;
+}
+
+div .boton{
+    background-color: white;
+    color: #FF7B54;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 1em;
+    font-weight: bold;
+}
+
+
+footer{
+    margin-top: 2em;
+    font-weight: bold;
+}
+
+#footerUp{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#footerUp .textoLogo{
+    justify-self: flex-start;
+    align-self: center;
+    margin-right: auto;
+    font-size: 2em;
+}
+
+#footerUp .correoElectronico{
+    justify-self: flex-start;
+    align-self:flex-end;
+    margin-right: auto;
+    font-size: 1em;
+}
+
+#footerUp a > img{
+    height: 1em;
+}
+
+#footerUp .downloadButton{
+    max-height: 1.5em;
+    margin-left: 0.2em;
+    align-self: center;
+}
+
+
+#footerBottom{
+    display: flex;
+    justify-content: left;
+}
+
+footer ul{
+    margin-left: -2.2em;
+}
+
+footer li{
+    display: inline;
+    font-weight: bold;
+}
+
+footer a{
+    text-decoration: none;
+    color: black;
+}
+

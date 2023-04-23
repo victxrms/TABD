@@ -1,0 +1,84 @@
+<!-- Codigo del indice de la página -->
+<!-- Ubicacion del archivo: file:///Volumes/v.1TB/programacion/PNET/codigosHTML/index.html -->
+
+<!DOCTYPE HTML>
+<head>
+    <link rel="stylesheet" href="../codigosCSS/registro.css">
+    <script src="../codigosJS/registro.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html lang="es"></html>
+    
+    <title>Reserva tu camping</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a  href="index.html">
+                <img alt="logo de vivac que representa una V como si fuera una tienda de campaña" src="../recursos/imagenes/logoGrande.png"> 
+                <h1 class="titulo">Vivac</h1>
+            </a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <div class="imagenCamping">
+
+
+            <form id="Form">
+               <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="reservaFecha">
+               
+               <div>
+                <label>Nombre</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="reservaFecha">
+                <label>Apellidos</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="reservaFecha"> 
+               </div>
+               
+               <label>Correo electronico</label><input aria-label="Correo electronico" type="email" class="inputs" id="horaInicioInput" name="reservaHora">
+               <label>Telefono</label><input aria-label="Telefono" type="tel" class="inputs" id="horaFinInput" name="reservaHora">
+
+               <div id="checkboxs">
+                <label>Cliente</label><input aria-label="Cliente" type="checkbox" class="inputs"  id="checkbox1" name="reservaFecha">
+                <label>Anunciante</label><input aria-label="Anunciante" type="checkbox" class="inputs"  id="checkbox2" name="reservaFecha"> 
+               </div>
+
+               <div id="nuevosCampos" style="display: none;">
+                <label>Nombre de la empresa</label>
+                <input aria-label="Nombre de la empresa" type="text" class="inputs" id="nombreEmpresa" name="nombreEmpresa">
+                <label>Tarjeta de crédito</label>
+                <input aria-label="Tarjeta de crédito" type="text" class="inputs" id="tarjetaCredito" name="tarjetaCredito">
+              </div>
+               
+               <input class="boton" type="submit" form="Form" value="¡Registrate!">
+               
+            </form>
+            
+            
+  
+    </div>
+
+    
+
+    <footer>
+        <div id="footerUp">
+            <a class="textoLogo" href="../codigosHTML/index.html"><img alt="logo de vivac que representa una V como si fuera una tienda de campaña" src="../recursos/imagenes/logoGrande.png">Vivac &copy;</a>
+            
+            <img alt="logo de descarga de AppStore" class="downloadButton" src="../recursos/imagenes/appstore.png">
+            <img alt="logo de descarga de PlayStore" class="downloadButton" src="../recursos/imagenes/googleplay.png">
+            
+        </div>
+        <hr>
+        <nav id="footerBottom">
+            <ul>
+                <li><a href="./reserva.html">Acampa</a></li>
+                <li><a href="./registro.html">Registrate</a></li>
+                <li><a href="./consulta.html">Consulta tu informacion</a></li>
+            </ul>
+                
+        </nav>
+        
+    </footer>
+</body>
+
+
+</html>

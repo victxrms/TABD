@@ -1,0 +1,210 @@
+@media (max-width: 600px) {
+    /* Reglas de estilo para pantallas menores a 600px */
+    
+    footer ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: auto;
+    }
+
+    .imagenCamping aside{
+        justify-content: center !important;
+    }
+}
+
+
+body {
+
+    font-family: Helvetica, sans-serif;
+    background-color: white;
+    max-width: 1291px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 2em;
+    
+}
+
+header nav{
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+header > nav > a{
+    text-decoration: none;
+}
+
+header .titulo{
+    width: 100%;
+    font-size: 4em;
+    font-weight: bold;
+    text-decoration: none; 
+    align-self: flex-start;
+    color: black;
+    cursor: pointer;
+    display: inline; 
+}
+
+header img{
+    max-height: auto;
+    width: 4em;
+}
+
+hr {
+    border: none; 
+    border-bottom: 0.2em solid #FF7B54;
+    border-radius: 0.1em; 
+    margin-top: 0em;
+    margin-bottom: 1em;
+}
+
+.imagenCamping{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1em;
+    align-items: center;
+}
+
+.imagenCamping > img{
+    width: 70%;
+    height: 70%;
+    max-height: 30em;
+    max-width: 30em;
+    border-radius: 2em;
+    object-fit: cover;
+
+}
+
+.imagenCamping > aside{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 20em;
+    min-width: 15em;
+    margin-left: 1em;
+}
+
+div .boton{
+    background: linear-gradient(90deg, #FF7B54 0%, #FFB26B 49%);
+    border-radius: 10px;
+    color: white;
+    border: none;
+    padding: 1em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 1em;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#Form{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80%;
+    position: relative;
+    margin-right: 2.6em;
+}
+
+.inputHorFech{
+    margin-top: 1em;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 0.2em;
+    border-color: #FF7B54;
+    padding: 0.5em;
+    width: 100%;
+    font-size: 1em;
+    margin-bottom: 2em;
+}
+
+#Form label{
+    font-size:small;
+}
+
+#Form div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#Form output{
+    padding: 0.5em;
+    margin-top: 0.5em;
+    vertical-align: middle;
+}
+
+.numPersonasInput{
+    margin-top: 1em;
+    vertical-align: middle;
+    width: 100%;
+}
+
+div aside{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+aside h3{
+    font-size: 2em;
+    align-self: flex-start;
+}
+
+aside p{
+    margin-top: -1.5em;
+}
+
+footer{
+    margin-top: 2em;
+    font-weight: bold;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#footerUp{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#footerUp a{
+    justify-self: flex-start;
+    align-self: center;
+    margin-right: auto;
+    font-size: 2em;
+}
+
+#footerUp a > img{
+    height: 1em;
+}
+
+#footerUp .downloadButton{
+    max-height: 1.5em;
+    margin-left: 0.2em;
+    align-self: center;
+}
+
+#footerBottom{
+    display: flex;
+    justify-content: left;
+}
+
+footer ul{
+    margin-left: -2.2em;
+}
+
+footer li{
+    display: inline;
+    font-weight: bold;
+    margin-left: 0.4em;
+}
+
+footer a{
+    text-decoration: none;
+    color: black;
+}
+

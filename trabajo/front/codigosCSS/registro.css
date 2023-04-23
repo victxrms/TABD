@@ -1,0 +1,212 @@
+@media (max-width: 600px) {
+    /* Reglas de estilo para pantallas menores a 600px */
+    
+    footer ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: auto;
+    }
+
+    .imagenCamping aside{
+        justify-content: center !important;
+    }
+}
+
+
+body {
+
+    font-family: Helvetica, sans-serif;
+    background-color: white;
+    max-width: 1291px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 3em;
+    
+}
+
+header nav{
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+header > nav > a{
+    text-decoration: none;
+}
+
+header .titulo{
+    width: 100%;
+    font-size: 4em;
+    font-weight: bold;
+    text-decoration: none; 
+    align-self: flex-start;
+    color: black;
+    cursor: pointer;
+    display: inline; 
+}
+
+header img{
+    max-height: auto;
+    width: 4em;
+}
+
+hr {
+    border: none; 
+    border-bottom: 0.2em solid #FF7B54;
+    border-radius: 0.1em; 
+    margin-top: 0em;
+    margin-bottom: 1em;
+}
+
+
+
+div .boton{
+    background: linear-gradient(90deg, #FF7B54 0%, #FFB26B 49%);
+    border-radius: 10px;
+    color: white;
+    border: none;
+    padding: 1em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 1em;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.imagenCamping {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+
+  
+  .inputs {
+    margin-top: 1em;
+    text-align: left;
+    font-weight: bold;
+    border-radius: 0.2em;
+    border-color: #FF7B54;
+    padding: 0.5em;
+    width: 100%;
+    font-size: 1em;
+    margin-bottom: 2em;
+  }
+
+  input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  padding: 10px;
+}
+
+#checkboxs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+
+#nombreapellidos {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+
+#Form label{
+    font-size:small;
+
+}
+
+#Form div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#Form output{
+    padding: 0.5em;
+    margin-top: 0.5em;
+    vertical-align: middle;
+    display: none;
+}
+
+#numPersonasInput{
+    margin-top: 1em;
+    vertical-align: middle;
+    width: 100%;
+}
+
+div aside{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+aside h3{
+    font-size: 2em;
+    align-self: flex-start;
+}
+
+aside p{
+    margin-top: -1.5em;
+}
+
+footer{
+    margin-top: 2em;
+    font-weight: bold;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#footerUp{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#footerUp a{
+    justify-self: flex-start;
+    align-self: center;
+    margin-right: auto;
+    font-size: 2em;
+}
+
+#footerUp a > img{
+    height: 1em;
+}
+
+#footerUp .downloadButton{
+    max-height: 1.5em;
+    margin-left: 0.2em;
+    align-self: center;
+}
+
+#footerBottom{
+    display: flex;
+    justify-content: left;
+}
+
+footer ul{
+    margin-left: -2.2em;
+}
+
+footer li{
+    display: inline;
+    font-weight: bold;
+    margin-left: 0.4em;
+}
+
+footer a{
+    text-decoration: none;
+    color: black;
+}
+
