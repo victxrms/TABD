@@ -1,5 +1,3 @@
-
-
     DROP TYPE TIPONOMBRE;
     DROP TYPE TIPOUSUARIO;
     DROP TYPE TIPOCLIENTE;
@@ -94,14 +92,17 @@
             CONSTRAINT ONLYONE_USUARIOS UNIQUE (usuario)
         );
        /
-    CREATE TABLE ANUNCIANTE OF TIPOANUNCIANTE(
+
+    CREATE TABLE ANUNCIANTES OF TIPOANUNCIANTE(
             CONSTRAINT PK_ANUNCIANTE PRIMARY KEY (id)
         ) NESTED TABLE arrayCampings STORE AS tablaRefCampings;
         /
-    CREATE TABLE CLIENTE OF TIPOCLIENTE(
+
+    CREATE TABLE CLIENTES OF TIPOCLIENTE(
             CONSTRAINT PK_CLIENTE PRIMARY KEY (id)
         ) NESTED TABLE arrayCampings STORE AS tablaCampings;
         /
+
     CREATE TABLE ANUNCIOS (
             id NUMBER GENERATED ALWAYS AS IDENTITY,
             CONSTRAINT PK_ANUNCIOS PRIMARY KEY (id),
@@ -125,4 +126,60 @@
         );
          /   
 
+        CREATE OR REPLACE TRIGGER NUEVOANUNCIO
+            BEFORE INSERT ON ANUNCIOS 
+            FOR EACH ROW 
+        BEGIN
+            INSERT INTO ANUNCIANTES(refCamping)
+            SELECT NEW.refCamping
+            FROM ANUNCIANTES
+            WHERE ANUNCIANTES.id = DEREF(NEW.refAnunciante).id;
+        EXCEPTION 
+            WHEN NO_DATA_FOUND THEN
+                raise_application_error(-20999,'El anunciante no existe');
+        END;
+        /
+
+        CREATE OR REPLACE TRIGGER NUEVARESERVA
+            BEFORE INSERT ON RESERVAS 
+            FOR EACH ROW 
+        BEGIN
+            INSERT INTO CLIENTES(refCamping)
+            SELECT NEW.refCamping
+            FROM CLIENTES
+            WHERE CLIENTES.id = DEREF(NEW.refCliente).id;
+        EXCEPTION 
+            WHEN NO_DATA_FOUND THEN
+                raise_application_error(-20999,'El cliente no existe');
+        END;
+        /
+
+        CREATE OR REPLACE TRIGGER CANCELARESERVA
+            before DELETE ON RESERVAS 
+            FOR EACH ROW 
+            WHEN (OLD.fechaFin > SYSDATE)
+        BEGIN
+            DELETE FROM CLIENTES
+            WHERE OLD.DEREF(refCliente).id = id;
+            
+            -- Eliminar referencia del camping en el array de campings del cliente
+            DECLARE
+                v_index PLS_INTEGER;
+            BEGIN
+                v_index := NULL;
+                FOR i IN 1..arrayCampings.COUNT LOOP
+                    IF arrayCampings(i) IS NOT NULL AND arrayCampings(i).id = OLD.DEREF(refCamping).id THEN
+                        v_index := i;
+                        EXIT;
+                    END IF;
+                END LOOP;
+                IF v_index IS NOT NULL THEN
+                    arrayCampings.DELETE(v_index);
+                END IF;
+            END;
+        EXCEPTION 
+            WHEN NO_DATA_FOUND THEN
+                RAISE_APPLICATION_ERROR(-20001, 'El cliente no existe');
+        END;
+        /
 
