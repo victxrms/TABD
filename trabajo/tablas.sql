@@ -1,185 +1,195 @@
-    DROP TYPE TIPONOMBRE;
-    DROP TYPE TIPOUSUARIO;
-    DROP TYPE TIPOCLIENTE;
-    DROP TYPE TIPOANUNCIANTE;
-    DROP TYPE TIPOCAMPING;
-    DROP TYPE TIPOARRAYCLIENTE;
-    DROP TABLE CAMPINGS;
-    DROP TYPE TIPOARRAYCAMPINGS;
+DROP TYPE tiponombre;
 
-            
-    CREATE TYPE TIPONOMBRE AS OBJECT(
-    
-    
-            usuario VARCHAR2(155),
-            apellido1 VARCHAR2(10),
-            apellido2 VARCHAR2(10)
-        );
-        /
-    
-    CREATE  TYPE TIPOUSUARIO AS OBJECT (
-            id NUMBER,
-            usuario VARCHAR2(10),
-            nombre TIPONOMBRE,
-            correo VARCHAR(50),
-            telefono NUMBER(9)
-        )NOT FINAL;
-    /
-    
-    
-    
-    CREATE OR REPLACE TYPE TIPOCAMPING AS OBJECT(
-            id NUMBER,
-            fkSitio NUMBER,
-            fkTipo NUMBER,
-            status VARCHAR2(10),
-            descripcion VARCHAR2(50),
-            capacidad NUMBER,
-            servicios VARCHAR2(50),
-            precio REAL    
-        );
-     /
-    
-    CREATE  TYPE TIPOARRAYCAMPINGS IS TABLE OF REF TIPOCAMPING;
-    /
-    
-    CREATE TYPE TIPOANUNCIANTE UNDER TIPOUSUARIO(
-    
-            empresa VARCHAR2(20),
-            tarjetaPago VARCHAR2(20),
-            arrayCampings TIPOARRAYCAMPINGS
-        );
-     /   
-    CREATE  TYPE TIPOCLIENTE UNDER TIPOUSUARIO(
-            arrayCampings TIPOARRAYCAMPINGS
-        );
-        /
-    
-    --CREATE  TYPE TIPOARRAYCLIENTE IS TABLE OF REF TIPOCLIENTE; 
-         
-    
-    
-    CREATE TABLE SITIO (
-            id NUMBER GENERATED ALWAYS AS IDENTITY,
-            nombre VARCHAR2(20),
-            comarca VARCHAR2(20),
-            CONSTRAINT PK_SITIO PRIMARY KEY(id)
-        );
-        /
-    
-    
-    CREATE TABLE TIPO (
-            id NUMBER GENERATED ALWAYS AS IDENTITY,
-            nombre VARCHAR2(20),
-            descripcion VARCHAR2(50),
-            CONSTRAINT PK_TIPOTABLA PRIMARY KEY (id)
-        );
-      /
-      
-      
-     CREATE TABLE CAMPINGS OF TIPOCAMPING;
-     /
- 
-    ALTER TABLE CAMPINGS ADD(
-            CONSTRAINT PK_CAMPINGS PRIMARY KEY (id),
-            CONSTRAINT fkTablaSitio FOREIGN KEY (fkSitio) REFERENCES SITIO(id),
-            CONSTRAINT fkTablaTipo FOREIGN KEY (fkTipo) REFERENCES TIPO(id)
-        );
-       /
-       
-    CREATE TABLE USUARIOS OF TIPOUSUARIO(
-            CONSTRAINT PK_USUARIOS PRIMARY KEY (id),
-            CONSTRAINT ONLYONE_USUARIOS UNIQUE (usuario)
-        );
-       /
+DROP TYPE tipousuario;
 
-    CREATE TABLE ANUNCIANTES OF TIPOANUNCIANTE(
-            CONSTRAINT PK_ANUNCIANTE PRIMARY KEY (id)
-        ) NESTED TABLE arrayCampings STORE AS tablaRefCampings;
-        /
+DROP TYPE tipocliente;
 
-    CREATE TABLE CLIENTES OF TIPOCLIENTE(
-            CONSTRAINT PK_CLIENTE PRIMARY KEY (id)
-        ) NESTED TABLE arrayCampings STORE AS tablaCampings;
-        /
+DROP TYPE tipoanunciante;
 
-    CREATE TABLE ANUNCIOS (
-            id NUMBER GENERATED ALWAYS AS IDENTITY,
-            CONSTRAINT PK_ANUNCIOS PRIMARY KEY (id),
-            refAnunciante REF TIPOANUNCIANTE,
-            refCamping REF TIPOCAMPING,
-            fechaInicio DATE,
-            fechaFin DATE
-        );
-        /
+DROP TYPE tipocamping;
+
+DROP TYPE tipoarraycliente;
+
+DROP TABLE campings;
+
+DROP TYPE tipoarraycampings;
+
+CREATE TYPE tiponombre AS OBJECT (
+        usuario   VARCHAR2(155),
+        apellido1 VARCHAR2(10),
+        apellido2 VARCHAR2(10)
+);
+/
+
+CREATE TYPE tipousuario AS OBJECT (
+        id       NUMBER,
+        usuario  VARCHAR2(10),
+        nombre   tiponombre,
+        correo   VARCHAR(50),
+        telefono NUMBER(9)
+) NOT FINAL;
+/
+
+CREATE OR REPLACE TYPE tipocamping AS OBJECT (
+        id          NUMBER,
+        fksitio     NUMBER,
+        fktipo      NUMBER,
+        status      VARCHAR2(10),
+        descripcion VARCHAR2(50),
+        capacidad   NUMBER,
+        servicios   VARCHAR2(50),
+        precio      REAL
+);
+/
+
+CREATE TYPE tipoarraycampings IS
+    TABLE OF REF tipocamping;
+/
+
+CREATE TYPE tipoanunciante UNDER tipousuario (
+        empresa       VARCHAR2(20),
+        tarjetapago   VARCHAR2(20),
+        arraycampings tipoarraycampings
+);
+/
+
+CREATE TYPE tipocliente UNDER tipousuario (
+    arraycampings tipoarraycampings
+);
+/
         
-        CREATE TABLE RESERVAS (
-            id NUMBER GENERATED ALWAYS AS IDENTITY,
-            CONSTRAINT PK_RESERVAS PRIMARY KEY (id),
-            refCliente REF TIPOCLIENTE,
-            refCamping REF TIPOCAMPING,
-            numNinos NUMBER,
-            numAdultos NUMBER,
-            numAlojamientos NUMBER,
-            fechaIni DATE,
-            fechaFin DATE
-        );
-         /   
+        --CREATE  TYPE TIPOARRAYCLIENTE IS TABLE OF REF TIPOCLIENTE; 
 
-        CREATE OR REPLACE TRIGGER NUEVOANUNCIO
-            BEFORE INSERT ON ANUNCIOS 
-            FOR EACH ROW 
-        BEGIN
-            INSERT INTO ANUNCIANTES(refCamping)
-            SELECT NEW.refCamping
-            FROM ANUNCIANTES
-            WHERE ANUNCIANTES.id = DEREF(NEW.refAnunciante).id;
-        EXCEPTION 
-            WHEN NO_DATA_FOUND THEN
-                raise_application_error(-20999,'El anunciante no existe');
-        END;
-        /
 
-        CREATE OR REPLACE TRIGGER NUEVARESERVA
-            BEFORE INSERT ON RESERVAS 
-            FOR EACH ROW 
-        BEGIN
-            INSERT INTO CLIENTES(refCamping)
-            SELECT NEW.refCamping
-            FROM CLIENTES
-            WHERE CLIENTES.id = DEREF(NEW.refCliente).id;
-        EXCEPTION 
-            WHEN NO_DATA_FOUND THEN
-                raise_application_error(-20999,'El cliente no existe');
-        END;
-        /
+CREATE TABLE sitio (
+    id      NUMBER
+        GENERATED ALWAYS AS IDENTITY,
+    nombre  VARCHAR2(20),
+    comarca VARCHAR2(20),
+    CONSTRAINT pk_sitio PRIMARY KEY ( id )
+);
+/
 
-        CREATE OR REPLACE TRIGGER CANCELARESERVA
-            before DELETE ON RESERVAS 
-            FOR EACH ROW 
-            WHEN (OLD.fechaFin > SYSDATE)
-        BEGIN
-            DELETE FROM CLIENTES
-            WHERE OLD.DEREF(refCliente).id = id;
-            
-            -- Eliminar referencia del camping en el array de campings del cliente
-            DECLARE
-                v_index PLS_INTEGER;
-            BEGIN
-                v_index := NULL;
-                FOR i IN 1..arrayCampings.COUNT LOOP
-                    IF arrayCampings(i) IS NOT NULL AND arrayCampings(i).id = OLD.DEREF(refCamping).id THEN
-                        v_index := i;
-                        EXIT;
-                    END IF;
-                END LOOP;
-                IF v_index IS NOT NULL THEN
-                    arrayCampings.DELETE(v_index);
-                END IF;
-            END;
-        EXCEPTION 
-            WHEN NO_DATA_FOUND THEN
-                RAISE_APPLICATION_ERROR(-20001, 'El cliente no existe');
-        END;
-        /
+CREATE TABLE tipo (
+    id          NUMBER
+        GENERATED ALWAYS AS IDENTITY,
+    nombre      VARCHAR2(20),
+    descripcion VARCHAR2(50),
+    CONSTRAINT pk_tipotabla PRIMARY KEY ( id )
+);
+/
 
+CREATE TABLE campings OF tipocamping;
+/
+
+ALTER TABLE campings ADD (
+    CONSTRAINT pk_campings PRIMARY KEY ( id ),
+    CONSTRAINT fktablasitio FOREIGN KEY ( fksitio )
+        REFERENCES sitio ( id ),
+    CONSTRAINT fktablatipo FOREIGN KEY ( fktipo )
+        REFERENCES tipo ( id )
+);
+/
+
+CREATE TABLE usuarios OF tipousuario (
+    CONSTRAINT pk_usuarios PRIMARY KEY ( id ),
+    CONSTRAINT onlyone_usuarios UNIQUE ( usuario )
+);
+/
+
+CREATE TABLE anunciantes OF tipoanunciante (
+    CONSTRAINT pk_anunciante PRIMARY KEY ( id )
+)
+NESTED TABLE arraycampings STORE AS tablarefcampings;
+/
+
+CREATE TABLE clientes OF tipocliente (
+    CONSTRAINT pk_cliente PRIMARY KEY ( id )
+)
+NESTED TABLE arraycampings STORE AS tablacampings;
+/
+
+CREATE TABLE anuncios (
+    id            NUMBER
+        GENERATED ALWAYS AS IDENTITY,
+    CONSTRAINT pk_anuncios PRIMARY KEY ( id ),
+    refanunciante REF tipoanunciante,
+    refcamping    REF tipocamping,
+    fechainicio   DATE,
+    fechafin      DATE
+);
+/
+
+CREATE TABLE reservas (
+    id              NUMBER
+        GENERATED ALWAYS AS IDENTITY,
+    CONSTRAINT pk_reservas PRIMARY KEY ( id ),
+    refcliente      REF tipocliente,
+    refcamping      REF tipocamping,
+    numninos        NUMBER,
+    numadultos      NUMBER,
+    numalojamientos NUMBER,
+    fechaini        DATE,
+    fechafin        DATE
+);
+/
+
+CREATE OR REPLACE TRIGGER nuevoanuncio AFTER
+    INSERT ON anuncios
+    FOR EACH ROW
+BEGIN
+    INSERT INTO TABLE (
+        SELECT
+            arraycampings
+        FROM
+            anunciantes
+        WHERE
+            id = deref(:new.refanunciante).id
+    ) VALUES ( :new.refcamping );
+
+EXCEPTION
+    WHEN no_data_found THEN
+        raise_application_error(-20999, 'El anunciante no existe');
+END;
+/
+
+CREATE OR REPLACE TRIGGER nuevareserva BEFORE
+    INSERT ON reservas
+    FOR EACH ROW
+BEGIN
+    INSERT INTO TABLE (
+        SELECT
+            arraycampings
+        FROM
+            clientes
+        WHERE
+            id = deref(:new.refcliente).id
+    ) VALUES ( :new.refcamping );
+
+EXCEPTION
+    WHEN no_data_found THEN
+        raise_application_error(-20999, 'El cliente no existe');
+END;
+/
+
+CREATE OR REPLACE TRIGGER cancelareserva BEFORE
+    DELETE ON reservas
+    FOR EACH ROW
+    WHEN ( old.fechafin > sysdate )
+BEGIN
+    DELETE FROM TABLE (
+        SELECT
+            arraycampings
+        FROM
+            clientes
+        WHERE
+            clientes.id = deref(:old.refcliente).id
+    ) camp
+    WHERE
+        deref(camp.column_value).id = deref(:old.refcamping).id;
+
+EXCEPTION
+    WHEN no_data_found THEN
+        raise_application_error(-20001, 'El cliente no existe');
+END;
+/

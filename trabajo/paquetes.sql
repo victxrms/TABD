@@ -1,23 +1,273 @@
-CREATE OR REPLACE PACKAGE MIPA AS
+CREATE SEQUENCE id_usuario INCREMENT BY 1 START WITH 1 NOCACHE;
 
-    PROCEDURE creaUsuario (nomUsuario VARCHAR2(20) IN, nombre VARCHAR2(20) IN, apellido1 VARCHAR2(20) IN, apellido2 VARCHAR2(20) IN, correo VARCHAR2(20) IN, telefono NUMBER IN);
-    PROCEDURE creaCliente (nomUsuario VARCHAR2(20) IN);
-    PROCEDURE creaAnunciante (nomUsuario VARCHAR2(20) IN, NUMBER tarjeta IN, VARCHAR2(20) empresa IN);
+CREATE OR REPLACE PACKAGE mipa AS
+    PROCEDURE creacliente (
+        nomusuario IN VARCHAR2,
+        nombre     IN VARCHAR2,
+        apellido1  IN VARCHAR2,
+        apellido2  IN VARCHAR2,
+        correo     IN VARCHAR2,
+        telefono   IN NUMBER
+    );
 
-    PROCEDURE creaAnuncio(nomUsuario VARCHAR2(20) IN, costo REAL IN, fecha DATE IN);
-    FUNCTION creaReserva(nomUsuario VARCHAR2(20) IN, nNinos NUMBER IN, nAdultos NUMBER IN, nAlojamientos NUMBER IN) RETURNS REAL;
+    PROCEDURE creaanunciante (
+        nomusuario IN VARCHAR2,
+        nombre     IN VARCHAR2,
+        apellido1  IN VARCHAR2,
+        apellido2  IN VARCHAR2,
+        correo     IN VARCHAR2,
+        telefono   IN NUMBER,
+        tarjeta    IN NUMBER,
+        empresa    IN VARCHAR2
+    );
 
-    PROCEDURE eliminaReserva(nomUsuario VARCHAR2(20) IN, nombreCamping VARCHAR2(20) IN, fechaReserva DATE IN);
+    PROCEDURE creaanuncio (
+        nomusuario IN VARCHAR2,
+        fechain    IN DATE,
+        fechafin   IN DATE,
+        id_camp    IN NUMBER
+    );
 
-    
-END MIPA;
+    FUNCTION creareserva (
+        nomusuario    IN VARCHAR2,
+        nninos        IN NUMBER,
+        nadultos      IN NUMBER,
+        nalojamientos IN NUMBER,
+        id_camp       IN NUMBER,
+        fechain       IN DATE,
+        fechafin      IN DATE
+    ) RETURN NUMBER;
 
-CREATE OR REPLACE PACKAGE BODY MIPA AS 
+    PROCEDURE eliminareserva (
+        nomusuario IN VARCHAR2,
+        id_camp    IN NUMBER
+    );
 
-    PROCEDURE creaUsuario (nomUsuario VARCHAR2(20) IN, nombre VARCHAR2(20) IN, apellido1 VARCHAR2(20) IN, apellido2 VARCHAR2(20) IN, correo VARCHAR2(20) IN, telefono NUMBER IN) IS
+END mipa;
+/
 
-    BEGIN 
+CREATE OR REPLACE PACKAGE BODY mipa AS
 
+    PROCEDURE creacliente (
+        nomusuario IN VARCHAR2,
+        nombre     IN VARCHAR2,
+        apellido1  IN VARCHAR2,
+        apellido2  IN VARCHAR2,
+        correo     IN VARCHAR2,
+        telefono   IN NUMBER
+    ) AS
+    BEGIN
+        INSERT INTO usuarios (
+            id,
+            usuario,
+            nombre,
+            correo,
+            telefono
+        ) VALUES (
+            id_usuario.NEXTVAL,
+            nomusuario,
+            tiponombre(nombre, apellido1, apellido2),
+            correo,
+            telefono
+        );
+
+        INSERT INTO cliente (
+            id,
+            usuario,
+            nombre,
+            correo,
+            telefono
+        ) VALUES (
+            id_usuario.currval,
+            nomusuario,
+            tiponombre(nombre, apellido1, apellido2),
+            correo,
+            telefono
+        );
+
+    EXCEPTION
+        WHEN dup_val_on_index THEN
+            raise_application_error(303, 'Esta cogido');
+        WHEN others THEN
+            raise_application_error(500, 'que me cago');
+    END creacliente;
+
+    PROCEDURE creaanunciante (
+        nomusuario IN VARCHAR2,
+        nombre     IN VARCHAR2,
+        apellido1  IN VARCHAR2,
+        apellido2  IN VARCHAR2,
+        correo     IN VARCHAR2,
+        telefono   IN NUMBER,
+        tarjeta    IN NUMBER,
+        empresa    IN VARCHAR2
+    ) AS
+    BEGIN
+        INSERT INTO usuarios (
+            id,
+            usuario,
+            nombre,
+            correo,
+            telefono
+        ) VALUES (
+            id_usuario.NEXTVAL,
+            nomusuario,
+            tiponombre(nombre, apellido1, apellido2),
+            correo,
+            telefono
+        );
+
+        INSERT INTO anunciante (
+            id,
+            usuario,
+            nombre,
+            correo,
+            telefono,
+            empresa,
+            tarjetapago
+        ) VALUES (
+            id_usuario.currval,
+            nomusuario,
+            tiponombre(nombre, apellido1, apellido2),
+            correo,
+            telefono,
+            empresa,
+            tarjeta
+        );
+
+    EXCEPTION
+        WHEN dup_val_on_index THEN
+            raise_application_error(303, 'Esta cogido');
+        WHEN others THEN
+            raise_application_error(500, 'me cago!!');
+    END creaanunciante;
+
+    PROCEDURE creaanuncio (
+        nomusuario IN VARCHAR2,
+        fechain    IN DATE,
+        fechafin   IN DATE,
+        id_camp IN NUMBER
+    ) AS
+        anun_ref    REF tipoanunciante;
+        camping_ref REF tipocamping;
+    BEGIN
+        --un switch o algo
+        SELECT
+            ref(anun)
+        INTO anun_ref
+        FROM
+            anunciante anun
+        WHERE
+            anun.usuario = nomusuario;
+
+        SELECT
+            ref(camp)
+        INTO camping_ref
+        FROM
+            campings camp
+        WHERE
+            camp.id = id_camp;
+
+        INSERT INTO anuncios (
+            refanunciante,
+            refcamping,
+            fechainicio,
+            fechafin
+        ) VALUES (
+            anun_ref,
+            camping_ref,
+            fechain,
+            fechafin
+        );
+
+    END creaanuncio;
+
+    PROCEDURE eliminareserva (
+        nomusuario IN VARCHAR2,
+        id_camp    IN NUMBER
+    ) AS
+    BEGIN
+        DELETE FROM reservas
+        WHERE
+            ( deref(reservas.refcliente).usuario = nomusuario
+              AND deref(reservas.refcamping).id = id_camp );
+
+    EXCEPTION
+        WHEN no_data_found THEN
+            raise_application_error(404, 'Datos no encontrados');
+        WHEN OTHERS THEN
+            raise_application_error(500, 'me cago');
+    END eliminareserva;
+
+    FUNCTION creareserva (
+        nomusuario    IN VARCHAR2,
+        nninos        IN NUMBER,
+        nadultos      IN NUMBER,
+        nalojamientos IN NUMBER,
+        id_camp       IN NUMBER,
+        fechain       IN DATE,
+        fechafin      IN DATE
+    ) RETURN NUMBER IS
+
+        preciofinal   NUMBER;
+        cliente_ref   REF tipocliente;
+        camping_ref   REF tipocamping;
+        numero_dias   INTERVAL DAY TO SECOND := fechafin - fechain;
+        dias          NUMBER;
+        preciocamping NUMBER;
+    BEGIN
+        SELECT
+            ref(cli)
+        INTO cliente_ref
+        FROM
+            cliente cli
+        WHERE
+            cli.usuario = nomusuario;
+
+        SELECT
+            ref(camp)
+        INTO camping_ref
+        FROM
+            campings camp
+        WHERE
+            camp.id = id_camp;
+
+        INSERT INTO reservas (
+            refcliente,
+            refcamping,
+            numninos,
+            numadultos,
+            numalojamientos,
+            fechaini,
+            fechafin
+        ) VALUES (
+            cliente_ref,
+            camping_ref,
+            nninos,
+            nadultos,
+            nalojamientos,
+            fechain,
+            fechafin
+        );
+
+        SELECT
+            camp.precio
+        INTO preciocamping
+        FROM
+            campings camp
+        WHERE
+            camp.id = id_camp;
+
+        dias := extract(DAY FROM numtodsinterval(numero_dias));
+        preciofinal := ( ( preciocamping * 0.5 * nninos + preciocamping * nadultos ) * nalojamientos ) * ( dias );
+
+        RETURN preciofinal;
     END;
 
-END MIPA;
+END mipa;
+/
+
+BEGIN
+    mipa.creacliente('Alemale', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678');
+END;
+/
