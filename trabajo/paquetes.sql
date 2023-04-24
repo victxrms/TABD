@@ -1,3 +1,5 @@
+SET SERVEROUTPUT ON
+ 
 CREATE SEQUENCE id_usuario INCREMENT BY 1 START WITH 1 NOCACHE;
 
 CREATE OR REPLACE PACKAGE mipa AS
@@ -87,9 +89,9 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
 
     EXCEPTION
         WHEN dup_val_on_index THEN
-            raise_application_error(303, 'Esta cogido');
+            raise_application_error(-20303, 'Esta cogido');
         WHEN others THEN
-            raise_application_error(500, 'que me cago');
+            raise_application_error(-20500, 'que me cago');
     END creacliente;
 
     PROCEDURE creaanunciante (
@@ -137,9 +139,9 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
 
     EXCEPTION
         WHEN dup_val_on_index THEN
-            raise_application_error(303, 'Esta cogido');
+            raise_application_error(-20303, 'Esta cogido');
         WHEN others THEN
-            raise_application_error(500, 'me cago!!');
+            raise_application_error(-20500, 'me cago!!');
     END creaanunciante;
 
     PROCEDURE creaanuncio (
@@ -196,7 +198,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
         WHEN no_data_found THEN
             raise_application_error(404, 'Datos no encontrados');
         WHEN OTHERS THEN
-            raise_application_error(500, 'me cago');
+            raise_application_error(-20500, 'me cago');
     END eliminareserva;
 
     FUNCTION creareserva (
@@ -212,7 +214,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
         preciofinal   NUMBER;
         cliente_ref   REF tipocliente;
         camping_ref   REF tipocamping;
-        numero_dias   INTERVAL DAY TO SECOND := fechafin - fechain;
+        --numero_dias   INTERVAL DAY TO SECOND := fechafin - fechain;
         dias          NUMBER;
         preciocamping NUMBER;
     BEGIN
@@ -258,7 +260,8 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
         WHERE
             camp.id = id_camp;
 
-        dias := extract(DAY FROM numtodsinterval(numero_dias));
+        dias := trunc(fechafin-fechain);
+    
         preciofinal := ( ( preciocamping * 0.5 * nninos + preciocamping * nadultos ) * nalojamientos ) * ( dias );
 
         RETURN preciofinal;
@@ -268,6 +271,11 @@ END mipa;
 /
 
 BEGIN
-    mipa.creacliente('Alemale', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678');
+    --mipa.creacliente('Alemale', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678');
+    --mipa.creaanunciante('KBasilisk', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678',1234567,'VIVAC entertaiment');
+   --mipa.creaanuncio('KBasilisk', '05-MAR-2023', '07-MAR-2023', 1);
+   
+        --DBMS_output.put_line('PRECIO:'|| mipa.creareserva('Alemale', 2, 2, 2, 1, '05-MAR-2023', '07-MAR-2023'));
+    --mipa.eliminareserva('Alemale',1);
 END;
 /
