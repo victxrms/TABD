@@ -25,6 +25,15 @@
 
     <hr>
 
+    <?php
+        if(array_key_exists('botonEnviar', $_POST)) {
+            enviarRegistro();
+        }
+        function enviarRegistro() {
+            echo "This is Button1 that is selected";
+        }
+    ?>
+
     <div class="imagenCamping">
 
 
@@ -51,7 +60,7 @@
                 <input aria-label="Tarjeta de crédito" type="text" class="inputs" id="tarjetaCredito" name="tarjetaCredito">
               </div>
                
-               <input class="boton" type="submit" form="Form" value="¡Registrate!">
+               <input class="boton" type="submit" name="botonEnviar" form="Form" value="¡Registrate!">
                
             </form>
             
