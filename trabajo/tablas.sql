@@ -61,7 +61,7 @@ CREATE TYPE tipocliente UNDER tipousuario (
         --CREATE  TYPE TIPOARRAYCLIENTE IS TABLE OF REF TIPOCLIENTE; 
 
 
-CREATE TABLE sitio (
+CREATE TABLE sitios (
     id      NUMBER
         GENERATED ALWAYS AS IDENTITY,
     nombre  VARCHAR2(20),
@@ -70,7 +70,7 @@ CREATE TABLE sitio (
 );
 /
 
-CREATE TABLE tipo (
+CREATE TABLE tipos (
     id          NUMBER
         GENERATED ALWAYS AS IDENTITY,
     nombre      VARCHAR2(20),
@@ -85,9 +85,9 @@ CREATE TABLE campings OF tipocamping;
 ALTER TABLE campings ADD (
     CONSTRAINT pk_campings PRIMARY KEY ( id ),
     CONSTRAINT fktablasitio FOREIGN KEY ( fksitio )
-        REFERENCES sitio ( id ),
+        REFERENCES sitios ( id ),
     CONSTRAINT fktablatipo FOREIGN KEY ( fktipo )
-        REFERENCES tipo ( id )
+        REFERENCES tipos ( id )
 );
 /
 
