@@ -73,7 +73,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             telefono
         );
 
-        INSERT INTO cliente (
+        INSERT INTO clientes (
             id,
             usuario,
             nombre,
@@ -119,7 +119,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             telefono
         );
 
-        INSERT INTO anunciante (
+        INSERT INTO anunciantes (
             id,
             usuario,
             nombre,
@@ -158,7 +158,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             ref(anun)
         INTO anun_ref
         FROM
-            anunciante anun
+            anunciantes anun
         WHERE
             anun.usuario = nomusuario;
 
@@ -222,7 +222,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             ref(cli)
         INTO cliente_ref
         FROM
-            cliente cli
+            clientes cli
         WHERE
             cli.usuario = nomusuario;
 
