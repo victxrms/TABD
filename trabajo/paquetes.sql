@@ -78,13 +78,15 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             usuario,
             nombre,
             correo,
-            telefono
+            telefono,
+            arrayCampings
         ) VALUES (
             id_usuario.currval,
             nomusuario,
             tiponombre(nombre, apellido1, apellido2),
             correo,
-            telefono
+            telefono,
+            tipoarraycampings()
         );
 
     EXCEPTION
@@ -126,7 +128,8 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             correo,
             telefono,
             empresa,
-            tarjetapago
+            tarjetapago,
+            arrayCampings
         ) VALUES (
             id_usuario.currval,
             nomusuario,
@@ -134,7 +137,8 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             correo,
             telefono,
             empresa,
-            tarjeta
+            tarjeta,
+            tipoarraycampings()
         );
 
     EXCEPTION
@@ -273,9 +277,8 @@ END mipa;
 BEGIN
     --mipa.creacliente('Alemale', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678');
     --mipa.creaanunciante('KBasilisk', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678',1234567,'VIVAC entertaiment');
-   --mipa.creaanuncio('KBasilisk', '05-MAR-2023', '07-MAR-2023', 1);
-   
-        --DBMS_output.put_line('PRECIO:'|| mipa.creareserva('Alemale', 2, 2, 2, 1, '05-MAR-2023', '07-MAR-2023'));
-    --mipa.eliminareserva('Alemale',1);
+    --mipa.creaanuncio('KBasilisk', '27-MAR-2023', '28-MAR-2023', 1);
+       -- DBMS_output.put_line('PRECIO:'|| mipa.creareserva('Alemale', 2, 2, 2, 1, '27-MAR-2023', '28-MAR-2023'));
+    mipa.eliminareserva('Alemale',1);
 END;
 /
