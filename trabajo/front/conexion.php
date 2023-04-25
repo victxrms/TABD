@@ -1,23 +1,22 @@
 <?php
+// Create connection to Oracle
+$conn = oci_connect("System", "malayo2001", "//localhost:1521/XE");
+if (!$conn) {
+   $m = oci_error();
+   echo $m['message'], "\n";
+   exit;
+}
+else {
+   print "Connected to Oracle!";
+}
 
-// Conectar al servicio XE (es deicr, la base de datos) en la máquina "localhost"
-    $conn = oci_connect('hr', 'welcome', 'localhost/XE');
-    if (!$conn) {
-        $e = oci_error();
-        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-    }
+// Preparar la consulta
+$array = oci_parse($conn, "BEGIN  :result:=mipa.creareserva('Alemale', 1, 1, 1, 1, '05-MAR-2023', '07-MAR-2023'); END;");
+oci_bind_by_name($array, ":result", $result, 10);
+oci_execute($array);
+echo "Precio:" . $result;
 
-    $stid = oci_parse($conn, 'SELECT * FROM employees');
-    oci_execute($stid);
+// Liberar recursos
 
-    echo "<table border='1'>\n";
-    while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
-        echo "<tr>\n";
-        foreach ($row as $item) {
-            echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "") . "</td>\n";
-        }
-        echo "</tr>\n";
-    }
-    echo "</table>\n";
-
+oci_close($conn);
 ?>
