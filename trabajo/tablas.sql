@@ -142,10 +142,12 @@ BEGIN
         SELECT
             arraycampings
         FROM
-            anunciantes
+            clientes cli
         WHERE
-            id = deref(:new.refanunciante).id
-    ) VALUES ( :new.refcamping );
+            cli.id = deref(:new.refanunciante).id)
+    SELECT REF(camp)
+    FROM campings camp
+    WHERE camp.id = deref(:new.refcamping).id;
 
 EXCEPTION
     WHEN no_data_found THEN
@@ -153,7 +155,9 @@ EXCEPTION
 END;
 /
 
-CREATE OR REPLACE TRIGGER nuevareserva BEFORE
+DROP TRIGGER nuevareserva;
+
+CREATE OR REPLACE TRIGGER nuevareserva AFTER
     INSERT ON reservas
     FOR EACH ROW
 BEGIN
@@ -161,10 +165,12 @@ BEGIN
         SELECT
             arraycampings
         FROM
-            clientes
+            clientes cli
         WHERE
-            id = deref(:new.refcliente).id
-    ) VALUES ( :new.refcamping );
+            cli.id = deref(:new.refcliente).id)
+    SELECT REF(camp)
+    FROM campings camp
+    WHERE camp.id = deref(:new.refcamping).id;
 
 EXCEPTION
     WHEN no_data_found THEN
@@ -172,6 +178,7 @@ EXCEPTION
 END;
 /
 
+/*
 CREATE OR REPLACE TRIGGER cancelareserva BEFORE
     DELETE ON reservas
     FOR EACH ROW
@@ -186,10 +193,12 @@ BEGIN
             clientes.id = deref(:old.refcliente).id
     ) camp
     WHERE
-        deref(camp.column_value).id = deref(:old.refcamping).id;
+        camp.column_value.id = deref(:old.refcamping).id;
 
 EXCEPTION
     WHEN no_data_found THEN
         raise_application_error(-20001, 'El cliente no existe');
 END;
 /
+
+*/
