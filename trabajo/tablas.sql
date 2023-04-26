@@ -142,9 +142,9 @@ BEGIN
         SELECT
             arraycampings
         FROM
-            clientes cli
+            anunciantes anun
         WHERE
-            cli.id = deref(:new.refanunciante).id)
+            anun.id = deref(:new.refanunciante).id)
     SELECT REF(camp)
     FROM campings camp
     WHERE camp.id = deref(:new.refcamping).id;
@@ -178,6 +178,8 @@ EXCEPTION
 END;
 /
 
+
+drop trigger cancelareserva;
 /*
 CREATE OR REPLACE TRIGGER cancelareserva BEFORE
     DELETE ON reservas
