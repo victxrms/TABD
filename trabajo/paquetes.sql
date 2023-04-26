@@ -1,4 +1,8 @@
 SET SERVEROUTPUT ON
+select r.fechaini, r.fechafin from reservas r where deref(r.refcliente).id=3;
+select c.id,t.nombre, s.nombre, s.comarca from tipos t JOIN campings c on c.fktipo=t.id JOIN sitios s on s.id=c.fksitio; 
+SELECT * FROM (select arraycampings from clientes where clientes.id=3);
+
  
 CREATE SEQUENCE id_usuario INCREMENT BY 1 START WITH 1 NOCACHE;
 
@@ -19,7 +23,7 @@ CREATE OR REPLACE PACKAGE mipa AS
         apellido2  IN VARCHAR2,
         correo     IN VARCHAR2,
         telefono   IN NUMBER,
-        tarjeta    IN NUMBER,
+        tarjeta    IN VARCHAR2,
         empresa    IN VARCHAR2
     );
 
@@ -29,7 +33,9 @@ CREATE OR REPLACE PACKAGE mipa AS
         fechafin   IN DATE,
         id_camp    IN NUMBER
     );
-
+    
+   
+    
     FUNCTION creareserva (
         nomusuario    IN VARCHAR2,
         nninos        IN NUMBER,
@@ -103,13 +109,13 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
         apellido2  IN VARCHAR2,
         correo     IN VARCHAR2,
         telefono   IN NUMBER,
-        tarjeta    IN NUMBER,
+        tarjeta    IN VARCHAR2,
         empresa    IN VARCHAR2
     ) AS
     BEGIN
         INSERT INTO usuarios (
             id,
-            usuario,
+            usuario,    
             nombre,
             correo,
             telefono
@@ -205,6 +211,10 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
             raise_application_error(-20500, 'me cago');
     END eliminareserva;
 
+    
+    
+
+
     FUNCTION creareserva (
         nomusuario    IN VARCHAR2,
         nninos        IN NUMBER,
@@ -274,11 +284,22 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
 END mipa;
 /
 
+DECLARE
+CURSOR mickey IS
+SELECT * FROM (select arraycampings from clientes where clientes.id=3) ;
+
 BEGIN
+    for i in 1..mickey.count loop
+     dbms_output.put_line(mickey(i));
+     end loop;
+
     --mipa.creacliente('Alemale', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678');
     --mipa.creaanunciante('KBasilisk', 'Alejandro', 'Jimenez', 'Garcia','aleelmaquina@gmail.es' ,'12345678',1234567,'VIVAC entertaiment');
     --mipa.creaanuncio('KBasilisk', '27-MAR-2023', '28-MAR-2023', 1);
-       -- DBMS_output.put_line('PRECIO:'|| mipa.creareserva('Alemale', 2, 2, 2, 1, '27-MAR-2023', '28-MAR-2023'));
-    mipa.eliminareserva('Alemale',1);
+    --DBMS_output.put_line('PRECIO:'|| mipa.creareserva('Tupu', 2, 2, 2, 1, '27-MAY-2023', '28-MAY-2023'));
+    --mipa.eliminareserva('Alemale',1);
+     --cursoralgo:=mipa.getreservas(3);
+     
+     
 END;
 /
