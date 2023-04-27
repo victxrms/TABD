@@ -1,6 +1,20 @@
 <!-- Codigo del indice de la página -->
 <!-- Ubicacion del archivo: file:///Volumes/v.1TB/programacion/PNET/codigosHTML/index.html -->
 
+
+<?php
+
+    function creaCliente($nomUsuario, $nom, $apel1, $apel2, $correo, $telefono){
+        $result = $nomUsuario . " " . $nom . " " . $apel1 . " " . $apel2 . " " . $correo . "t has registrado con esos datos";
+        return $result;
+    }
+
+    if (isset($_POST['nomUsuario']) && isset($_POST['nome']) && isset($_POST['apel1']) && isset($_POST['apel2']) && isset($_POST['email'])) {
+        $result = creaCliente($_POST['nomUsuario'], $_POST['nome'], $_POST['apel1'], $_POST['apel2'], , $_POST['email']);
+    }
+
+ ?>
+
 <!DOCTYPE HTML>
 <head>
     <link rel="stylesheet" href="../codigosCSS/registro.css">
@@ -25,19 +39,14 @@
 
     <hr>
 
-    <?php
-        if(array_key_exists('botonEnviar', $_POST)) {
-            enviarRegistro();
-        }
-        function enviarRegistro() {
-            echo "This is Button1 that is selected";
-        }
-    ?>
-
     <div class="imagenCamping">
 
 
-            <form id="Form">
+            <?php if (isset($result)) { ?>
+                <h1> Result: <?php echo $result ?></h1>
+            <?php } ?>
+
+            <form id="Form" action="" method="post">
                <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="nomUsuario">
                
                <div>
