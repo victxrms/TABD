@@ -1,6 +1,6 @@
 <?php
 // Create connection to Oracle
-$conn = oci_connect("System", "malayo2001", "//localhost:1521/XE");
+$conn = oci_connect("ADMIN", "Malayo2001puma", "tcps://adb.eu-madrid-1.oraclecloud.com:1522/g0573e2ee8cd1de_u9zlsa4mr7lpwcm3_high.adb.oraclecloud.com?wallet_location=../Wallet_U9ZLSA4MR7LPWCM3");
 if (!$conn) {
    $m = oci_error();
    echo $m['message'], "\n";
@@ -60,6 +60,9 @@ WHERE c.id =:id_Cliente";
    }
 }
 
-getReservas(3);
+//creaReserva("Mondongo",1,2,2,1,"23-MAR-2002","24-MAR-2002");
+//creaCliente("Mondongo","Gustamante","Rojas","MASROJO","correo@tuput.com",1234556);
 //oci_close($conn);
 ?>
+
+
