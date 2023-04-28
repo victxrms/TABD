@@ -39,8 +39,8 @@
 
 <!DOCTYPE HTML>
 <head>
-    <link rel="stylesheet" href="../codigosCSS/consulta.css">
-    <script src="../codigosJS/registro.js"></script>
+    <link rel="stylesheet" href="./codigosCSS/consulta.css">
+    <script src="./codigosJS/registro.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="es"></html>
     
@@ -52,7 +52,7 @@
     <header>
         <nav>
             <a  href="index.html">
-                <img alt="logo de vivac que representa una V como si fuera una tienda de campaña" src="../recursos/imagenes/logoGrande.png"> 
+                <img alt="logo de vivac que representa una V como si fuera una tienda de campaña" src="./recursos/imagenes/logoGrande.png"> 
                 <h1 class="titulo">Vivac</h1>
             </a>
         </nav>
@@ -86,10 +86,10 @@
 
     <footer>
         <div id="footerUp">
-            <a class="textoLogo" href="../codigosHTML/index.html"><img alt="logo de vivac que representa una V como si fuera una tienda de campaña" src="../recursos/imagenes/logoGrande.png">Vivac &copy;</a>
+            <a class="textoLogo" href="./codigosHTML/index.html"><img alt="logo de vivac que representa una V como si fuera una tienda de campaña" src="./recursos/imagenes/logoGrande.png">Vivac &copy;</a>
             
-            <img alt="logo de descarga de AppStore" class="downloadButton" src="../recursos/imagenes/appstore.png">
-            <img alt="logo de descarga de PlayStore" class="downloadButton" src="../recursos/imagenes/googleplay.png">
+            <img alt="logo de descarga de AppStore" class="downloadButton" src="./recursos/imagenes/appstore.png">
+            <img alt="logo de descarga de PlayStore" class="downloadButton" src="./recursos/imagenes/googleplay.png">
             
         </div>
         <hr>
