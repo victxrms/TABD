@@ -29,8 +29,8 @@ CREATE OR REPLACE PACKAGE mipa AS
 
     PROCEDURE creaanuncio (
         nomusuario IN VARCHAR2,
-        fechain    IN DATE,
-        fechafin   IN DATE,
+        fechain    IN VARCHAR2,
+        fechafin   IN VARCHAR2,
         id_camp    IN NUMBER
     );
     
@@ -156,12 +156,14 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
 
     PROCEDURE creaanuncio (
         nomusuario IN VARCHAR2,
-        fechain    IN DATE,
-        fechafin   IN DATE,
+        fechain    IN VARCHAR2,
+        fechafin   IN VARCHAR2,
         id_camp IN NUMBER
     ) AS
         anun_ref    REF tipoanunciante;
         camping_ref REF tipocamping;
+        fechaini        DATE;
+        fechafinal      DATE;
     BEGIN
         --un switch o algo
         SELECT
@@ -180,6 +182,9 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
         WHERE
             camp.id = id_camp;
 
+        fechaini:=TO_DATE(fechain,'YYYY-MM-DD');
+        fechafinal:=TO_DATE(fechafin,'YYYY-MM-DD');
+
         INSERT INTO anuncios (
             refanunciante,
             refcamping,
@@ -188,8 +193,8 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
         ) VALUES (
             anun_ref,
             camping_ref,
-            fechain,
-            fechafin
+            fechaini,
+            fechafinal
         );
 
     END creaanuncio;
@@ -342,3 +347,4 @@ BEGIN
      
 END;
 /
+
