@@ -52,7 +52,7 @@
         <aside>
             
 
-            <form id="Form">
+            <form id="Form" method="post">
                 <label>Usuario</label><input aria-label="Nombre de usuario" type="text"  class="inputHorFech"  id="fechaFormInput" name="nombreUsuario">
                 
                 <label>Nombre de campings</label>
@@ -67,12 +67,13 @@
                 <label>Fecha Inicio</label><input aria-label="Fecha" type="date" class="inputHorFech"  id="fechaFormInput" name="fIni">
 
                 <label>Fecha Fin</label><input aria-label="Fecha" type="date" class="inputHorFech"  id="fechaFormInput" name="fFin">
-                
+
+                <input class="boton" type="submit" form="Form" value="¡Reserva ya!" name="enviaAnuncio">
+
              </form>
             
             
             
-            <input class="boton" type="submit" form="Form" value="¡Reserva ya!" name="enviaAnuncio">
 
             <div id="mensaje-container"></div>
 

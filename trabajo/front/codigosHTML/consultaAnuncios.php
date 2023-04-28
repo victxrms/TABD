@@ -73,6 +73,12 @@
                     echo "<script>document.getElementById('datosReservas').style.display = 'none';</script>";
                     getAnuncios(htmlspecialchars($_POST['anunciante']));
                 } 
+
+                if(isset($_POST['borrarAnuncio']))
+                {
+                    echo "<script>document.getElementById('datosReservas').style.display = 'none';</script>";
+                    getAnuncios(htmlspecialchars($_POST['anunciante']));
+                } 
             ?>
 
             <form id="Form" method="post">
@@ -80,6 +86,8 @@
                <input class="boton" type="submit" name="enviarConsulta" form="Form" value="¡Consulta tus anuncios!">
                
             </form>  
+
+            
   
         </div>
 

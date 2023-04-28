@@ -15,6 +15,7 @@
             oci_execute($array);
             echo "<div class='mensaje'>Reserva creada con exito por un precio de: <?php . $result ?></div>";
         }
+        
     ?>
 
 
@@ -25,6 +26,7 @@
     <script src="./codigosJS/reserva.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="es"></html>
+    <meta charset="UTF-8">
     <title>Reserva tu camping</title>
 </head>
 
@@ -53,16 +55,16 @@
         <aside>
             
 
-            <form id="Form">
+            <form id="Form" method="post">
                 <label>Usuario</label><input aria-label="Nombre de usuario" type="text"  class="inputHorFech"  id="fechaFormInput" name="nombreUsuario">
                 
                 <label>Nombre de campings</label>
                     <select id="campingsName" name="nombreCamping" class="inputHorFech">
                         <option value="0">Selecciona un camping</option>
-                        <option value="2">Cerromulera</option>
-                        <option value="3">Kandersteg</option>
-                        <option value="4">Griebal</option>
-                        <option value="5">Bermejales</option>
+                        <option value="1">Cerromulera</option>
+                        <option value="2">Kandersteg</option>
+                        <option value="3">Griebal</option>
+                        <option value="4">Bermejales</option>
                     </select>
 
 
@@ -85,12 +87,13 @@
                     <output for="numAlojamientos"></output> 
                 </div>
                 
-                <label>Fecha Inicio</label><input aria-label="Fecha" type="date" class="inputHorFech"  id="fechaFormInput" name="reservaFecha">
+                <label>Fecha Inicio</label><input aria-label="Fecha" type="date" class="inputHorFech"  id="fechaFormInput" name="fIni">
 
-                <label>Fecha Fin</label><input aria-label="Fecha" type="date" class="inputHorFech"  id="fechaFormInput" name="reservaFecha">
+                <label>Fecha Fin</label><input aria-label="Fecha" type="date" class="inputHorFech"  id="fechaFormInput" name="fFin">
+                
+                <input class="boton" type="submit" form="Form" value="¡Reserva ya!" name="enviaReserva">
                 
              </form>
-            <input class="boton" type="submit" form="Form" value="¡Reserva ya!" name="enviaReserva">
 
             <div id="mensaje-container"></div>
 

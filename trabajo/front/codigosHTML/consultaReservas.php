@@ -7,6 +7,14 @@
         $conn = oci_connect("ADMIN", "Malayo2001puma", "tcps://adb.eu-madrid-1.oraclecloud.com:1522/g0573e2ee8cd1de_u9zlsa4mr7lpwcm3_high.adb.oraclecloud.com?wallet_location=../Wallet_U9ZLSA4MR7LPWCM3");
         // Liberar recursos
 
+        function eliminaReservas($cliente, $idCamping)
+        {
+            global $conn;
+            $array = oci_parse($conn, "BEGIN  mipa.eliminareserva('$cliente', '$idCamping'); END;");
+            oci_execute($array);
+            echo "<div class='mensaje'>Reservas eliminadas correctamente</div>";
+        }
+
         function getReservas($idCliente)
         {
             global $conn;
@@ -42,9 +50,10 @@
 <!DOCTYPE HTML>
 <head>
     <link rel="stylesheet" href="./codigosCSS/consulta.css">
-    <script src="./codigosJS/registro.js"></script>
+    <script src="./codigosJS/consultas.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="es"></html>
+    
     
     <title>Reserva tu camping</title>
 </head>
@@ -72,13 +81,33 @@
                     echo "<script>document.getElementById('datosReservas').style.display = 'none';</script>";
                     getReservas(htmlspecialchars($_POST['cliente']));
                 } 
+
+                if(isset($_POST['borrarReserva']))
+                {
+                    echo "<script>document.getElementById('datosReservas').style.display = 'none';</script>";
+                    eliminaReservas(htmlspecialchars($_POST['clienteBorrar']), htmlspecialchars($_POST['idCamping']));
+                } 
             ?>
 
             <form id="Form" method="post">
                <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="cliente">
                <input class="boton" type="submit" name="enviarConsulta" form="Form" value="¡Consulta tus reservas!">
                
+               <div id="checkboxs">
+                <label>ELIMINAR RESERVA</label><input aria-label="Cliente" type="checkbox" class="inputs"  id="checkbox1" name="clien">
+               </div>
+
+                <div id="nuevosCampos" style="display: none;">
+                <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="clienteBorrar">
+                <label>Id del camping</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="idCamping">
+                
+                <input class="boton" type="submit" id="botonBorrar" name="borrarReserva" form="Form" value="¡Elimina las reservas de este camping!">
+                
+                </div>  
+
             </form>  
+
+            
   
         </div>
 

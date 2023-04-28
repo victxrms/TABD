@@ -67,16 +67,16 @@
         ?>
 
             <form id="Form" method="post">
-               <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="nomUsuario">
+               <label>Nombre de usuario</label><input maxlength="10" aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="nomUsuario">
                
                <div>
-                <label>Nombre</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="nome">
-                <label>Primer apellido</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="ape1"> 
-                <label>Segundo apellido</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="ape2"> 
+                <label>Nombre</label><input maxlength="10" aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="nome">
+                <label>Primer apellido</label><input maxlength="10" aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="ape1"> 
+                <label>Segundo apellido</label><input maxlength="10" aria-label="Nombre de usuario" type="text" class="inputs"  id="nombreapellidos" name="ape2"> 
                </div>
                
-               <label>Correo electronico</label><input aria-label="Correo electronico" type="email" class="inputs" id="horaInicioInput" name="email">
-               <label>Telefono</label><input aria-label="Telefono" type="tel" class="inputs" id="horaFinInput" name="telf">
+               <label>Correo electronico</label><input maxlength="50" aria-label="Correo electronico" type="email" class="inputs" id="horaInicioInput" name="email">
+               <label>Telefono</label><input  maxlength="9" aria-label="Telefono" type="tel" class="inputs" id="horaFinInput" name="telf">
 
                <div id="checkboxs">
                 <label>Cliente</label><input aria-label="Cliente" type="checkbox" class="inputs"  id="checkbox1" name="clien">
@@ -85,9 +85,9 @@
 
                <div id="nuevosCampos" style="display: none;">
                 <label>Nombre de la empresa</label>
-                <input aria-label="Nombre de la empresa" type="text" class="inputs" id="nombreEmpresa" name="nEmp">
+                <input aria-label="Nombre de la empresa" maxlength="20" type="text" class="inputs" id="nombreEmpresa" name="nEmp">
                 <label>Tarjeta de crédito</label>
-                <input aria-label="Tarjeta de crédito" type="text" class="inputs" id="tarjetaCredito" name="tarj">
+                <input aria-label="Tarjeta de crédito" maxlength="20" type="text" class="inputs" id="tarjetaCredito" name="tarj">
               </div>
                
                <input class="boton" style="display: none;" id="botonCliente" type="submit" name="botonEnviarCliente" form="Form" value="¡Registrate cliente!">
