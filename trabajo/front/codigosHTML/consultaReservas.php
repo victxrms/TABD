@@ -21,18 +21,20 @@
             oci_bind_by_name($stid, ":id_Cliente", $idCliente);
                 oci_execute($stid);
 
-                
-            
                 while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                    echo "<p>Id del camping: " . $row['ID_CAMPING'] . "</p>";
-                    echo "<p>Fecha de inicio: " . $row['FECHAINICIO'] . "</p>";
-                    echo "<p>Fecha de fin: " . $row['FECHAFIN'] . "</p>";
-                    echo "<p>Tipo de camping: " . $row['TIPO'] . "</p>";
-                    echo "<p>Nombre del camping: " . $row['SITIO'] . "</p>";
-                    echo "<p>Comarca del camping: " . $row['COMARCA'] . "</p>";
-                    echo "<p>Descripción del camping: " . $row['DESCRIPCION'] . "</p>";
-                    echo "<p>Servicios del camping: " . $row['SERVICIOS'] . "</p>";
-                    echo "<hr>";
+                    echo "<div>
+                <p> <b>Nombre del camping: </b> " . $row['SITIO'] . "</p>
+                <p> <b>Id del camping: </b> " . $row['ID_CAMPING'] . "</p>
+                <p> <b>Fecha de inicio: </b> " . $row['FECHAINICIO'] . "</p>
+                <p> <b>Fecha de fin: </b>" . $row['FECHAFIN'] . "</p>
+                <p> <b>Tipo de camping: </b>" . $row['TIPO'] . "</p>
+                <p> <b>Comarca del camping: </b>" . $row['COMARCA'] . "</p>
+                <p> <b>Descripción del camping: </b>" . $row['DESCRIPCION'] . "</p>
+                <p> <b>Servicios del camping: </b>" . $row['SERVICIOS'] . "</p>
+                <hr style='height: 1px; background-color: black; border: none; margin: 10px 0;'>
+                        </div>"  ;  
+
+                    
                 }
         }
     ?>
@@ -74,7 +76,7 @@
 
             <form id="Form" method="post">
                <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="cliente">
-               <input class="boton" type="submit" name="enviarConsulta" form="Form" value="¡Consulta tus datos!">
+               <input class="boton" type="submit" name="enviarConsulta" form="Form" value="¡Consulta tus reservas!">
                
             </form>  
   

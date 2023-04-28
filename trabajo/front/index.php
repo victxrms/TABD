@@ -60,8 +60,8 @@ function getReservas($idCliente)
    }
 }
 //getReservas(1);
-//creaReserva("Mondongo",1,4,2,1,"25-MAR-2002","27-MAR-2002");
-creaAnuncio("Victorino","25-MAR-2002","27-MAR-2002", 1);
+//creaReserva("Vmoso202",1,4,2,1,"25-MAR-2002","27-MAR-2002");
+//creaAnuncio("Victorino","25-MAR-2002","27-MAR-2002", 1);
 //creaAnunciante("Victorino","Madronero","Rojas","MASROJO","correo@tuput.com",1234556, "vivac", 000000);
 //oci_close($conn);
 ?>

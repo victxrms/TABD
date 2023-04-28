@@ -24,15 +24,18 @@
                 
             
                 while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-                    echo "<p>Id del camping: " . $row['ID_CAMPING'] . "</p>";
-                    echo "<p>Fecha de inicio: " . $row['FECHAINICIO'] . "</p>";
-                    echo "<p>Fecha de fin: " . $row['FECHAFIN'] . "</p>";
-                    echo "<p>Tipo de camping: " . $row['TIPO'] . "</p>";
-                    echo "<p>Nombre del camping: " . $row['SITIO'] . "</p>";
-                    echo "<p>Comarca del camping: " . $row['COMARCA'] . "</p>";
-                    echo "<p>Descripción del camping: " . $row['DESCRIPCION'] . "</p>";
-                    echo "<p>Servicios del camping: " . $row['SERVICIOS'] . "</p>";
-                    echo "<hr>";
+                echo "<div>
+                <p>Nombre del camping: " . $row['SITIO'] . "</p>
+                <p>Id del camping: " . $row['ID_CAMPING'] . "</p>
+                <p>Fecha de inicio: " . $row['FECHAINICIO'] . "</p>
+                <p>Fecha de fin: " . $row['FECHAFIN'] . "</p>
+                <p>Tipo de camping: " . $row['TIPO'] . "</p>
+                <p>Comarca del camping: " . $row['COMARCA'] . "</p>
+                <p>Descripción del camping: " . $row['DESCRIPCION'] . "</p>
+                <p>Servicios del camping: " . $row['SERVICIOS'] . "</p>
+                <hr style='height: 1px; background-color: black; border: none; margin: 10px 0;'>
+                        </div>"  ;  
+                    
                 }
         }
     ?>
@@ -74,7 +77,7 @@
 
             <form id="Form" method="post">
                <label>Nombre de usuario</label><input aria-label="Nombre de usuario" type="text" class="inputs"  id="fechaFormInput" name="anunciante">
-               <input class="boton" type="submit" name="enviarConsulta" form="Form" value="¡Consulta tus datos!">
+               <input class="boton" type="submit" name="enviarConsulta" form="Form" value="¡Consulta tus anuncios!">
                
             </form>  
   

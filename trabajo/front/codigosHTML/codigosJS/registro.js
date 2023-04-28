@@ -6,8 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     checkbox2.addEventListener('change', function() {
         if (checkbox2.checked) {
         nuevosCampos.style.display = 'block';
+        botonAnunciante.style.display = "block";
+        botonCliente.style.display = 'none';
         } else {
         nuevosCampos.style.display = 'none';
+        botonAnunciante.style.display = 'none';
         }
     });
 
@@ -15,8 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
     checkbox1.addEventListener('change', function() {
         if (checkbox1.checked) {
         nuevosCampos.style.display = 'none';
+        botonCliente.style.display = "block";
+        botonAnunciante.style.display = 'none';
         } else {
         nuevosCampos.style.display = 'none';
+        botonCliente.style.display = 'none';
         }
     });
     

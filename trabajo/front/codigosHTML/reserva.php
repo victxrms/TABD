@@ -59,10 +59,10 @@
                 <label>Nombre de campings</label>
                     <select id="campingsName" name="nombreCamping" class="inputHorFech">
                         <option value="0">Selecciona un camping</option>
-                        <option value="1">Cerromulera</option>
-                        <option value="2">Kandersteg</option>
-                        <option value="3">Griebal</option>
-                        <option value="4">Bermejales</option>
+                        <option value="2">Cerromulera</option>
+                        <option value="3">Kandersteg</option>
+                        <option value="4">Griebal</option>
+                        <option value="5">Bermejales</option>
                     </select>
 
 

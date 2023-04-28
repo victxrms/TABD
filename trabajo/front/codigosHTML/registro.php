@@ -90,8 +90,8 @@
                 <input aria-label="Tarjeta de crédito" type="text" class="inputs" id="tarjetaCredito" name="tarj">
               </div>
                
-               <input class="boton" type="submit" name="botonEnviarCliente" form="Form" value="¡Registrate cliente!">
-               <input class="boton" type="submit" name="botonEnviarAnunciante" form="Form" value="¡Registrate anunciante!">
+               <input class="boton" style="display: none;" id="botonCliente" type="submit" name="botonEnviarCliente" form="Form" value="¡Registrate cliente!">
+               <input class="boton" style="display: none;" id="botonAnunciante" type="submit" name="botonEnviarAnunciante" form="Form" value="¡Registrate anunciante!">
                
             </form>
             

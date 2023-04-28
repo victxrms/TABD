@@ -54,12 +54,11 @@ header img{
 }
 
 hr {
-    border: none; 
-    border-bottom: 0.2em solid #FF7B54;
-    border-radius: 0.1em; 
-    margin-top: 0em;
-    margin-bottom: 1em;
-}
+    height: 1px;
+    background-color: #FF7B54;
+    border: none;
+    margin: 10px 0;
+  }
 
 #datos{
     display: flex;
@@ -229,7 +228,7 @@ footer ul{
 footer li{
     display: inline;
     font-weight: bold;
-    margin-left: 0.4em;
+    margin-right: 2em;
 }
 
 footer a{
