@@ -10,13 +10,17 @@
         function getAnuncios($idAnunciante)
         {
             global $conn;
-            $query = "SELECT DISTINCT a.usuario,  an.fechainicio AS FechaInicio, an.fechafin AS FechaFin, DEREF(t.column_value).id AS id_camping, tip.nombre AS tipo, sit.nombre AS sitio, sit.comarca AS comarca, DEREF(t.column_value).descripcion AS descripcion, DEREF(t.column_value).servicios AS servicios
-            FROM anunciantes a, TABLE(a.arraycampings) t 
-            JOIN sitios sit ON sit.id=DEREF(t.column_value).fksitio
-            JOIN tipos tip ON tip.id=DEREF(t.column_value).fktipo
-            JOIN anuncios an ON DEREF(an.refcamping).id = DEREF(t.column_value).id
+            $query = "SELECT DISTINCT a.usuario,  an.fechainicio AS FechaInicio, an.fechafin AS FechaFin, c.id AS id_camping, t.nombre AS tipo, s.nombre AS sitio, s.comarca AS comarca, c.descripcion AS descripcion, c.servicios AS servicios
+            FROM anuncios an
+            JOIN anunciantes a ON REF(a) = an.refanunciante
+            JOIN campings c ON REF(c) = an.refcamping
+            JOIN sitios s ON s.id = c.fksitio
+            JOIN tipos t ON t.id = c.fktipo
             WHERE a.usuario =:id_Anunciante";
                 
+
+                
+       
             $stid=oci_parse($conn, $query);
             oci_bind_by_name($stid, ":id_Anunciante", $idAnunciante);
                 oci_execute($stid);
