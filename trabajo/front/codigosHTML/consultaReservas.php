@@ -18,12 +18,14 @@
         function getReservas($idCliente)
         {
             global $conn;
-            $query = "SELECT DISTINCT c.usuario,  r.fechaini AS FechaInicio, r.fechafin AS FechaFin, DEREF(t.column_value).id AS id_camping, tip.nombre AS tipo, sit.nombre AS sitio, sit.comarca AS comarca, DEREF(t.column_value).descripcion AS descripcion, DEREF(t.column_value).servicios AS servicios
-            FROM clientes c, TABLE(c.arraycampings) t 
-            JOIN sitios sit ON sit.id=DEREF(t.column_value).fksitio
-            JOIN tipos tip ON tip.id=DEREF(t.column_value).fktipo
-            JOIN reservas r ON DEREF(r.refcamping).id = DEREF(t.column_value).id
-            WHERE c.usuario =:id_Cliente";
+            $query = "SELECT DISTINCT cl.usuario,  r.fechaini AS FechaInicio, r.fechafin AS FechaFin, c.id AS id_camping, t.nombre AS tipo, s.nombre AS sitio, s.comarca AS comarca, c.descripcion AS descripcion, c.servicios AS servicios        
+            FROM reservas r
+            JOIN clientes cl ON REF(cl) = r.refcliente
+            JOIN campings c ON REF(c) = r.refcamping
+            JOIN sitios s ON s.id = c.fksitio
+            JOIN tipos t ON t.id = c.fktipo
+            WHERE cl.usuario =:id_Cliente";
+
                 
             $stid=oci_parse($conn, $query);
             oci_bind_by_name($stid, ":id_Cliente", $idCliente);
