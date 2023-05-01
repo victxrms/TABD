@@ -14,7 +14,7 @@ INSERT INTO CAMPINGS (fksitio, fktipo, status, descripcion, capacidad, servicios
 INSERT INTO CAMPINGS (fksitio, fktipo, status, descripcion, capacidad, servicios, precio) VALUES (3, 3, 3, 'Publico', 'Conoceras gente increible', 500, 'Duchas, Piscina, Catering, Zonas de acampada', 15);
 INSERT INTO CAMPINGS (fksitio, fktipo, status, descripcion, capacidad, servicios, precio) VALUES (4, 4, 5, 'Publico', 'Estaras con gente de toda España', 200, 'Duchas, Piscina, Cocina equipada, Lagos', 5);
 
-INSERT INTO CLIENTES (usuario, nombre, correo, telefono, arraycampings) VALUES ('victxrms', TIPONOMBRE('Victor', 'Moreno', 'Sola,), 'vmoso2002@gmail.com', 655464789, TIPOARRAYCAMPINGS());
-INSERT INTO CLIENTES (usuario, nombre, correo, telefono, arraycampings) VALUES ('kBasilisk', TIPONOMBRE('Alejandro', 'Jimenez', 'Garcia,), 'kbasliskelmejor@gmail.com', 643569874, TIPOARRAYCAMPINGS());
+INSERT INTO CLIENTES (id, usuario, nombre, correo, telefono, arraycampings) VALUES (id_usuario.nextval, 'victxrms', TIPONOMBRE('Victor', 'Moreno', 'Sola'), 'vmoso2002@gmail.com', 655464789, TIPOARRAYCAMPINGS());
+INSERT INTO CLIENTES (id, usuario, nombre, correo, telefono, arraycampings) VALUES (id_usuario.nextval, 'kBasilisk', TIPONOMBRE('Alejandro', 'Jimenez', 'Garcia'), 'kbasliskelmejor@gmail.com', 643569874, TIPOARRAYCAMPINGS());
 
-INSERT INTO ANUNCIANTES (id, usuario, nombre, correo, telefono, empresa, tarjetapago, arraycampings) VALUES ('riojano', TIPONOMBRE('Charles', 'River', 'Ha,), 'funnyrivercharles@gmail.com', 640987812, ucaCoin, 31231045, TIPOARRAYCAMPINGS())
+INSERT INTO ANUNCIANTES (id, usuario, nombre, correo, telefono, empresa, tarjetapago, arraycampings) VALUES (id_usuario.nextval, 'riojano', TIPONOMBRE('Charles', 'River', 'Ha'), 'funnyrivercharles@gmail.com', 64098781, 'ucaCoin', '31231045', TIPOARRAYCAMPINGS() );
