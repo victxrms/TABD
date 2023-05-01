@@ -1,12 +1,14 @@
 
-BEGIN
+    --Creamos tipos
+    @tipos.sql
+    --Creamos tablas
+    @tablas.sql
+    --Creamos secuencias
+    @secuencias.sql
+    --Creamos disparadores
+    @triggers.sql
+    --Creamos paquetes con las funciones y procedimientos
+    @paquetes.sql
+    --Insertamos los datos iniciales
+    @insercionTipos.sql
 
-    @@tipos.sql;
-    @@tablas.sql;
-    @@secuencias.sql;
-    @@triggers.sql;
-    @@paquetes.sql;
-    @@insercionTipos.sql;
-
-END;
-/
