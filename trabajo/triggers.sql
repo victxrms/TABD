@@ -19,8 +19,6 @@ EXCEPTION
 END;
 /
 
-DROP TRIGGER nuevareserva;
-
 CREATE OR REPLACE TRIGGER nuevareserva AFTER
     INSERT ON reservas
     FOR EACH ROW
