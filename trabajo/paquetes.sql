@@ -1,10 +1,3 @@
-SET SERVEROUTPUT ON
-select r.fechaini, r.fechafin from reservas r where deref(r.refcliente).id=3;
-select c.id,t.nombre, s.nombre, s.comarca from tipos t JOIN campings c on c.fktipo=t.id JOIN sitios s on s.id=c.fksitio; 
-SELECT * FROM (select arraycampings from clientes where clientes.id=3);
-
- 
-CREATE SEQUENCE id_usuario INCREMENT BY 1 START WITH 1 NOCACHE;
 
 CREATE OR REPLACE PACKAGE mipa AS
     PROCEDURE creacliente (
@@ -294,6 +287,7 @@ CREATE OR REPLACE PACKAGE BODY mipa AS
 END mipa;
 /
 
+/*
 DECLARE
 cliente_ref   REF tipocliente;
 camping_ref   REF tipocamping;
@@ -347,4 +341,5 @@ BEGIN
      
 END;
 /
+*/
 
