@@ -13,7 +13,7 @@
             $array = oci_parse($conn, "BEGIN  :result:=mipa.creareserva('$nomUsuario', '$ninos', '$adultos', '$alojamientos', '$idcamp', '$fechaIni', '$fechaFin'); END;");
             oci_bind_by_name($array, ":result", $result, 10);
             oci_execute($array);
-            echo "<div class='mensaje'>Reserva creada con exito por un precio de: <?php . $result ?></div>";
+            echo "<div class='mensaje'>Reserva creada con exito por un precio de: $result €</div>";
         }
         
     ?>
